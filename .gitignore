@@ -33,6 +33,7 @@ target/
 .settings/
 .vscode/*
 !.vscode/settings.json
+!.vscode/launch.json
 
 # OS
 .DS_Store

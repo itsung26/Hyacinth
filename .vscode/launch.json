@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Hyacinth",
+      "request": "launch",
+      "mainClass": "hyacinth.Launcher",
+      "projectName": "hyacinth",
+      "console": "integratedTerminal",
+      "vmArgs": "--enable-native-access=ALL-UNNAMED",
+      "args": ["--testarg1=1", "--testarg2=2"]
+    }
+  ]
+}
