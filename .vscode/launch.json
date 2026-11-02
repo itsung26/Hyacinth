@@ -9,7 +9,7 @@
       "projectName": "hyacinth",
       "console": "integratedTerminal",
       "vmArgs": "--enable-native-access=ALL-UNNAMED",
-      "args": ["--testarg1=1", "--testarg2=2"]
+      "args": []
     }
   ]
 }
