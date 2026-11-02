@@ -31,7 +31,8 @@ target/
 .classpath
 .project
 .settings/
-.vscode/
+.vscode/*
+!.vscode/settings.json
 
 # OS
 .DS_Store

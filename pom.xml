@@ -22,6 +22,7 @@
         <maven.compiler.plugin.version>3.16.0</maven.compiler.plugin.version>
         <maven.jar.plugin.version>3.5.1</maven.jar.plugin.version>
         <maven.surefire.plugin.version>3.6.1</maven.surefire.plugin.version>
+        <maven.dependency.plugin.version>3.11.0</maven.dependency.plugin.version>
     </properties>
 
     <dependencies>
@@ -72,7 +73,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>hyacinth.App</mainClass>
+                            <mainClass>hyacinth.Launcher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -87,9 +88,103 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx.maven.plugin.version}</version>
                 <configuration>
-                    <mainClass>hyacinth.App</mainClass>
+                    <mainClass>hyacinth.Launcher</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javafx-sources-for-ide</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.openjfx</groupId>
+                                    <artifactId>javafx-base</artifactId>
+                                    <version>${javafx.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${settings.localRepository}/org/openjfx/javafx-base/${javafx.version}</outputDirectory>
+                                    <destFileName>javafx-base-${javafx.version}-${javafx.platform}-sources.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.openjfx</groupId>
+                                    <artifactId>javafx-graphics</artifactId>
+                                    <version>${javafx.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${settings.localRepository}/org/openjfx/javafx-graphics/${javafx.version}</outputDirectory>
+                                    <destFileName>javafx-graphics-${javafx.version}-${javafx.platform}-sources.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.openjfx</groupId>
+                                    <artifactId>javafx-controls</artifactId>
+                                    <version>${javafx.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${settings.localRepository}/org/openjfx/javafx-controls/${javafx.version}</outputDirectory>
+                                    <destFileName>javafx-controls-${javafx.version}-${javafx.platform}-sources.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.openjfx</groupId>
+                                    <artifactId>javafx-fxml</artifactId>
+                                    <version>${javafx.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${settings.localRepository}/org/openjfx/javafx-fxml/${javafx.version}</outputDirectory>
+                                    <destFileName>javafx-fxml-${javafx.version}-${javafx.platform}-sources.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.openjfx</groupId>
+                                    <artifactId>javafx-swing</artifactId>
+                                    <version>${javafx.version}</version>
+                                    <classifier>sources</classifier>
+                                    <outputDirectory>${settings.localRepository}/org/openjfx/javafx-swing/${javafx.version}</outputDirectory>
+                                    <destFileName>javafx-swing-${javafx.version}-${javafx.platform}-sources.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>macos</id>
+            <activation>
+                <os>
+                    <name>mac os x</name>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+    </profiles>
 </project>
